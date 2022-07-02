@@ -2,8 +2,11 @@ package src
 
 import (
 	"fyne.io/fyne/v2"
+	"fyne.io/fyne/v2/canvas"
 	"fyne.io/fyne/v2/container"
+	"fyne.io/fyne/v2/layout"
 	"fyne.io/fyne/v2/widget"
+	"image/color"
 )
 
 type Game struct {
@@ -17,8 +20,18 @@ func (g Game) Run() {
 }
 
 func (g Game) renderMainMenu() {
-	title := widget.NewTextGrid()
-	title.SetText("TIC-TAC-TOE")
+	title := canvas.NewText("TIC-TAC-TOE", color.White)
+	title.Alignment = fyne.TextAlignCenter
+	title.TextSize = 42
+
+	symbol := canvas.NewText("X-O-X", color.White)
+	symbol.Alignment = fyne.TextAlignCenter
+	symbol.TextSize = 100
+
+	startBtn := widget.NewButton(
+		"Start", func() {
+		},
+	)
 
 	exitBtn := widget.NewButton(
 		"Exit", func() {
@@ -26,7 +39,13 @@ func (g Game) renderMainMenu() {
 		},
 	)
 
-	c := container.NewVBox(title, exitBtn)
+	c := container.NewVBox(
+		title,
+		symbol,
+		layout.NewSpacer(),
+		container.NewCenter(container.NewVBox(startBtn, exitBtn)),
+		layout.NewSpacer(),
+	)
 	g.window.window.SetContent(c)
 }
 
