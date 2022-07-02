@@ -30,6 +30,7 @@ func (g Game) renderMainMenu() {
 
 	startBtn := widget.NewButton(
 		"Start", func() {
+			g.start()
 		},
 	)
 
@@ -51,6 +52,93 @@ func (g Game) renderMainMenu() {
 
 func (g Game) exit() {
 	g.window.window.Close()
+}
+
+func (g Game) start() {
+	g.renderPlayField()
+}
+
+func (g Game) renderPlayField() {
+	var fieldOne *widget.Button
+	var fieldTwo *widget.Button
+	var fieldThree *widget.Button
+	var fieldFour *widget.Button
+	var fieldFive *widget.Button
+	var fieldSix *widget.Button
+	var fieldSeven *widget.Button
+	var fieldEight *widget.Button
+	var fieldNine *widget.Button
+
+	fieldOne = widget.NewButton(
+		"TEST", func() {
+			markField(fieldOne, "O")
+		},
+	)
+	fieldTwo = widget.NewButton(
+		"TEST", func() {
+			markField(fieldTwo, "O")
+		},
+	)
+	fieldThree = widget.NewButton(
+		"TEST", func() {
+			markField(fieldTwo, "O")
+		},
+	)
+	fieldFour = widget.NewButton(
+		"TEST", func() {
+			markField(fieldTwo, "O")
+		},
+	)
+	fieldFive = widget.NewButton(
+		"TEST", func() {
+			markField(fieldTwo, "O")
+		},
+	)
+	fieldSix = widget.NewButton(
+		"TEST", func() {
+			markField(fieldTwo, "O")
+		},
+	)
+	fieldSeven = widget.NewButton(
+		"TEST", func() {
+			markField(fieldTwo, "O")
+		},
+	)
+	fieldEight = widget.NewButton(
+		"TEST", func() {
+			markField(fieldTwo, "O")
+		},
+	)
+	fieldNine = widget.NewButton(
+		"TEST", func() {
+			markField(fieldTwo, "O")
+		},
+	)
+
+	fieldBox := container.NewGridWithRows(
+		3,
+		fieldOne,
+		fieldTwo,
+		fieldThree,
+		fieldFour,
+		fieldFive,
+		fieldSix,
+		fieldSeven,
+		fieldEight,
+		fieldNine,
+	)
+
+	//for i := 0; i < 9; i++ {
+	//	fieldBox.Add(field)
+	//}
+
+	g.window.window.SetContent(fieldBox)
+}
+
+func markField(field *widget.Button, symbol string) {
+	if "" == field.Text {
+		field.SetText(symbol)
+	}
 }
 
 func NewGame(window *window) *Game {
