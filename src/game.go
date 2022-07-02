@@ -70,48 +70,48 @@ func (g Game) renderPlayField() {
 	var fieldNine *widget.Button
 
 	fieldOne = widget.NewButton(
-		"TEST", func() {
+		"", func() {
 			markField(fieldOne, "O")
 		},
 	)
 	fieldTwo = widget.NewButton(
-		"TEST", func() {
+		"", func() {
 			markField(fieldTwo, "O")
 		},
 	)
 	fieldThree = widget.NewButton(
-		"TEST", func() {
-			markField(fieldTwo, "O")
+		"", func() {
+			markField(fieldThree, "O")
 		},
 	)
 	fieldFour = widget.NewButton(
-		"TEST", func() {
-			markField(fieldTwo, "O")
+		"", func() {
+			markField(fieldFour, "O")
 		},
 	)
 	fieldFive = widget.NewButton(
-		"TEST", func() {
-			markField(fieldTwo, "O")
+		"", func() {
+			markField(fieldFive, "O")
 		},
 	)
 	fieldSix = widget.NewButton(
-		"TEST", func() {
-			markField(fieldTwo, "O")
+		"", func() {
+			markField(fieldSix, "O")
 		},
 	)
 	fieldSeven = widget.NewButton(
-		"TEST", func() {
-			markField(fieldTwo, "O")
+		"", func() {
+			markField(fieldSeven, "O")
 		},
 	)
 	fieldEight = widget.NewButton(
-		"TEST", func() {
-			markField(fieldTwo, "O")
+		"", func() {
+			markField(fieldEight, "O")
 		},
 	)
 	fieldNine = widget.NewButton(
-		"TEST", func() {
-			markField(fieldTwo, "O")
+		"", func() {
+			markField(fieldNine, "O")
 		},
 	)
 
@@ -127,10 +127,6 @@ func (g Game) renderPlayField() {
 		fieldEight,
 		fieldNine,
 	)
-
-	//for i := 0; i < 9; i++ {
-	//	fieldBox.Add(field)
-	//}
 
 	g.window.window.SetContent(fieldBox)
 }
