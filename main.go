@@ -2,6 +2,7 @@ package main
 
 import (
 	"TicTacToe/src"
+	"fyne.io/fyne/v2"
 	"fyne.io/fyne/v2/app"
 )
 
@@ -9,7 +10,7 @@ func main() {
 	a := app.New()
 	w := a.NewWindow("TIC-TAC-TOE")
 	w.CenterOnScreen()
-	w.SetFullScreen(true)
+	w.Resize(fyne.NewSize(400, 400))
 
 	game := src.NewGame(src.NewWindow(w))
 
