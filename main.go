@@ -11,6 +11,7 @@ func main() {
 	w := a.NewWindow("TIC-TAC-TOE")
 	w.CenterOnScreen()
 	w.Resize(fyne.NewSize(400, 400))
+	w.SetFixedSize(true)
 
 	game := src.NewGame(src.NewWindow(w))
 
