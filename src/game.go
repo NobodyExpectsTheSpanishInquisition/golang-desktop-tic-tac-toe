@@ -75,15 +75,29 @@ func (g Game) renderPlayField() {
 	var fieldEight *widget.Button
 	var fieldNine *widget.Button
 
-	fieldOne = widget.NewButton("", func() { g.makeMove(fieldOne, "O", 1, true) })
-	fieldTwo = widget.NewButton("", func() { g.makeMove(fieldTwo, "O", 2, true) })
-	fieldThree = widget.NewButton("", func() { g.makeMove(fieldThree, "O", 3, true) })
-	fieldFour = widget.NewButton("", func() { g.makeMove(fieldFour, "O", 4, true) })
-	fieldFive = widget.NewButton("", func() { g.makeMove(fieldFive, "O", 5, true) })
-	fieldSix = widget.NewButton("", func() { g.makeMove(fieldSix, "O", 6, true) })
-	fieldSeven = widget.NewButton("", func() { g.makeMove(fieldSeven, "O", 7, true) })
-	fieldEight = widget.NewButton("", func() { g.makeMove(fieldEight, "O", 8, true) })
-	fieldNine = widget.NewButton("", func() { g.makeMove(fieldNine, "O", 9, true) })
+	fieldOne = widget.NewButton("", func() { g.makeMove(0, true) })
+	fieldTwo = widget.NewButton("", func() { g.makeMove(1, true) })
+	fieldThree = widget.NewButton("", func() { g.makeMove(2, true) })
+	fieldFour = widget.NewButton("", func() { g.makeMove(3, true) })
+	fieldFive = widget.NewButton("", func() { g.makeMove(4, true) })
+	fieldSix = widget.NewButton("", func() { g.makeMove(5, true) })
+	fieldSeven = widget.NewButton("", func() { g.makeMove(6, true) })
+	fieldEight = widget.NewButton("", func() { g.makeMove(7, true) })
+	fieldNine = widget.NewButton("", func() { g.makeMove(8, true) })
+
+	g.play.SetFields(
+		[9]*Field{
+			NewField(0, fieldOne),
+			NewField(1, fieldTwo),
+			NewField(2, fieldThree),
+			NewField(3, fieldFour),
+			NewField(4, fieldFive),
+			NewField(5, fieldSix),
+			NewField(6, fieldSeven),
+			NewField(7, fieldEight),
+			NewField(8, fieldNine),
+		},
+	)
 
 	fieldBox := container.NewGridWithRows(
 		3,
@@ -101,20 +115,13 @@ func (g Game) renderPlayField() {
 	g.window.window.SetContent(fieldBox)
 }
 
-func (g Game) makeMove(field *widget.Button, symbol string, fieldNum int, playerMove bool) {
-	markField(field, symbol)
+func (g Game) makeMove(fieldNum int, playerMove bool) {
 	if false == playerMove {
 		g.play.MakeComputerMove(fieldNum)
 		return
 	}
 
 	g.play.MakePlayerMove(fieldNum)
-}
-
-func markField(field *widget.Button, symbol string) {
-	if "" == field.Text {
-		field.SetText(symbol)
-	}
 }
 
 type window struct {
