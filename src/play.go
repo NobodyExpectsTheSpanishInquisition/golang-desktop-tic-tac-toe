@@ -1,6 +1,10 @@
 package src
 
-import "fyne.io/fyne/v2/widget"
+import (
+	"fyne.io/fyne/v2/widget"
+	"math/rand"
+	"time"
+)
 
 type Play struct {
 	playerFields   []int
@@ -14,12 +18,17 @@ func (p *Play) SetFields(fields [9]*Field) {
 }
 
 type Field struct {
-	id   int
-	view *widget.Button
+	id          int
+	view        *widget.Button
+	isAvailable bool
+}
+
+func (f Field) IsAvailable() bool {
+	return f.isAvailable
 }
 
 func NewField(id int, view *widget.Button) *Field {
-	return &Field{id: id, view: view}
+	return &Field{id: id, view: view, isAvailable: true}
 }
 
 func NewPlay() *Play {
@@ -31,9 +40,12 @@ func (p *Play) MakePlayerMove(fieldNum int) {
 	p.usedFields = append(p.usedFields, fieldNum)
 
 	p.markField(fieldNum, "0")
+
+	p.MakeComputerMove(p.getComputerField())
 }
 
 func (p *Play) MakeComputerMove(fieldNum int) {
+	time.Sleep(1 * time.Second)
 	p.computerFields = append(p.playerFields, fieldNum)
 	p.usedFields = append(p.usedFields, fieldNum)
 
@@ -45,6 +57,17 @@ func (p *Play) markField(fieldNum int, symbol string) {
 
 	if "" == field.view.Text {
 		field.view.SetText(symbol)
+		field.isAvailable = false
 		field.view.Disable()
 	}
+}
+
+func (p *Play) getComputerField() int {
+	chosenField := p.fields[rand.Intn(9)]
+
+	if false == chosenField.isAvailable {
+		return p.getComputerField()
+	}
+
+	return chosenField.id
 }
