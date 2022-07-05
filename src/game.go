@@ -75,15 +75,15 @@ func (g Game) renderPlayField() {
 	var fieldEight *widget.Button
 	var fieldNine *widget.Button
 
-	fieldOne = widget.NewButton("", func() { g.makeMove(0, true) })
-	fieldTwo = widget.NewButton("", func() { g.makeMove(1, true) })
-	fieldThree = widget.NewButton("", func() { g.makeMove(2, true) })
-	fieldFour = widget.NewButton("", func() { g.makeMove(3, true) })
-	fieldFive = widget.NewButton("", func() { g.makeMove(4, true) })
-	fieldSix = widget.NewButton("", func() { g.makeMove(5, true) })
-	fieldSeven = widget.NewButton("", func() { g.makeMove(6, true) })
-	fieldEight = widget.NewButton("", func() { g.makeMove(7, true) })
-	fieldNine = widget.NewButton("", func() { g.makeMove(8, true) })
+	fieldOne = widget.NewButton("", func() { g.makeMove(0) })
+	fieldTwo = widget.NewButton("", func() { g.makeMove(1) })
+	fieldThree = widget.NewButton("", func() { g.makeMove(2) })
+	fieldFour = widget.NewButton("", func() { g.makeMove(3) })
+	fieldFive = widget.NewButton("", func() { g.makeMove(4) })
+	fieldSix = widget.NewButton("", func() { g.makeMove(5) })
+	fieldSeven = widget.NewButton("", func() { g.makeMove(6) })
+	fieldEight = widget.NewButton("", func() { g.makeMove(7) })
+	fieldNine = widget.NewButton("", func() { g.makeMove(8) })
 
 	g.play.SetFields(
 		[9]*Field{
@@ -99,7 +99,7 @@ func (g Game) renderPlayField() {
 		},
 	)
 
-	fieldBox := container.NewGridWithRows(
+	fieldBox := container.NewGridWithColumns(
 		3,
 		fieldOne,
 		fieldTwo,
@@ -115,13 +115,17 @@ func (g Game) renderPlayField() {
 	g.window.window.SetContent(fieldBox)
 }
 
-func (g Game) makeMove(fieldNum int, playerMove bool) {
-	if false == playerMove {
-		g.play.MakeComputerMove(fieldNum)
+func (g Game) makeMove(fieldNum int) {
+	g.play.MakePlayerMove(fieldNum)
+	if true == g.play.DidPlayerWin(fieldNum) {
+		g.window.window.SetContent(container.NewWithoutLayout(widget.NewLabel("YOU WON")))
 		return
 	}
-
-	g.play.MakePlayerMove(fieldNum)
+	g.play.MakeComputerMove(g.play.GetComputerField())
+	if true == g.play.DidComputerWin(fieldNum) {
+		g.window.window.SetContent(container.NewWithoutLayout(widget.NewLabel("YOU LOSE")))
+		return
+	}
 }
 
 type window struct {
